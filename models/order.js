@@ -9,12 +9,13 @@ const orderSchema = mongoose.Schema({
   },
 });
 
-productSchema.virtual('id').get(function () {
+orderSchema.virtual('id').get(function () {
   return this._id.toHexString();
 });
 
-productSchema.set('toJSON', {
+orderSchema.set('toJSON', {
   virtuals: true,
 });
 
 exports.Order = mongoose.model('Order', orderSchema);
+exports.orderSchema = orderSchema;

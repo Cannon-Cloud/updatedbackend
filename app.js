@@ -3,6 +3,8 @@ const app = express();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const authJwt = require('./helpers/jwt');
+const errorHandler = require('./helpers/error-handler');
 
 //Routers Import
 const categoriesRouter = require('./router/categories');
@@ -21,6 +23,8 @@ const mongodbconnect = process.env.MONGO_URL;
 //MIDDLEWARE
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(authJwt());
+app.use(errorHandler);
 
 //Routers
 app.use(`${api}/categories`, categoriesRouter);
