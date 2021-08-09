@@ -1,11 +1,11 @@
 const express = require('express');
-const app = express();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const authJwt = require('./helpers/jwt');
 const errorHandler = require('./helpers/error-handler');
 
+const app = express();
 //Routers Import
 const categoriesRouter = require('./router/categories');
 const ordersRouter = require('./router/orders');

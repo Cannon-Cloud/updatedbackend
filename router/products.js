@@ -1,9 +1,11 @@
 const express = require('express');
-const { Category } = require('../models/category');
-const router = express.Router();
 const mongoose = require('mongoose');
+const multer = require('multer');
 
+const { Category } = require('../models/category');
 const { Product } = require('../models/product');
+
+const router = express.Router();
 
 router.get('/', async (req, res) => {
   let filter = {};
