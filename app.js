@@ -24,6 +24,7 @@ const mongodbconnect = process.env.MONGO_URL;
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(authJwt());
+app.use('/public/my-uploads', express.static(__dirname + '/public/my-uploads'));
 app.use(errorHandler);
 
 //Routers
