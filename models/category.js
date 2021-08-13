@@ -22,4 +22,3 @@ categorySchema.set('toJSON', {
 });
 
 exports.Category = mongoose.model('Category', categorySchema);
-exports.categorySchema = categorySchema;

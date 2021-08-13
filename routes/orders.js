@@ -33,10 +33,10 @@ router.get(`/:id`, async (req, res) => {
 
 router.post('/', async (req, res) => {
   const orderItemsIds = Promise.all(
-    req.body.orderItems.map(async (orderItem) => {
+    req.body.orderItems.map(async (orderitem) => {
       let newOrderItem = new OrderItem({
-        quantity: orderItem.quantity,
-        product: orderItem.product,
+        quantity: orderitem.quantity,
+        product: orderitem.product,
       });
 
       newOrderItem = await newOrderItem.save();
@@ -44,6 +44,7 @@ router.post('/', async (req, res) => {
       return newOrderItem._id;
     })
   );
+
   const orderItemsIdsResolved = await orderItemsIds;
 
   const totalPrices = await Promise.all(
@@ -52,12 +53,16 @@ router.post('/', async (req, res) => {
         'product',
         'price'
       );
+
       const totalPrice = orderItem.product.price * orderItem.quantity;
+
       return totalPrice;
     })
   );
 
   const totalPrice = totalPrices.reduce((a, b) => a + b, 0);
+
+  console.log(totalPrices);
 
   let order = new Order({
     orderItems: orderItemsIdsResolved,
@@ -75,7 +80,7 @@ router.post('/', async (req, res) => {
 
   if (!order) return res.status(400).send('the order cannot be created!');
 
-  res.send(order);
+  res.status(200).send(order);
 });
 
 router.put('/:id', async (req, res) => {

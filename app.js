@@ -7,10 +7,10 @@ const errorHandler = require('./helpers/error-handler');
 
 const app = express();
 //Routers Import
-const categoriesRouter = require('./router/categories');
-const ordersRouter = require('./router/orders');
-const productsRouter = require('./router/products');
-const usersRouter = require('./router/users');
+const categoriesRoutes = require('./routes/categories');
+const productsRoutes = require('./routes/products');
+const usersRoutes = require('./routes/users');
+const ordersRoutes = require('./routes/orders');
 
 require('dotenv/config');
 
@@ -28,16 +28,17 @@ app.use('/public/my-uploads', express.static(__dirname + '/public/my-uploads'));
 app.use(errorHandler);
 
 //Routers
-app.use(`${api}/categories`, categoriesRouter);
-app.use(`${api}/orders`, ordersRouter);
-app.use(`${api}/products`, productsRouter);
-app.use(`${api}/users`, usersRouter);
+app.use(`${api}/categories`, categoriesRoutes);
+app.use(`${api}/products`, productsRoutes);
+app.use(`${api}/users`, usersRoutes);
+app.use(`${api}/orders`, ordersRoutes);
 
 //Connect to Database
 mongoose
   .connect(mongodbconnect, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
   })
   .then(() => {
     console.log('MongoDB Connected...');
